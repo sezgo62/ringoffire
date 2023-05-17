@@ -1,0 +1,38 @@
+<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 90)}" 
+[playerActive]="i == game.currentPlayer"
+[name]="player"
+    class="player-position"></app-player>
+
+<div class="field">
+
+    <div class="card-stack">
+
+        <!---Das ngFor ist eine forschleife innerhalb des HTML.
+    c ist eine Variable und danach sehen wir das Array.[ngClass].
+Danach haben wir das [ngStyle], welches uns befähigt einen style einzugeben wie das "right
+mit welcher wir die jeweilige Karte durch das i, also index verschieben."-->
+        <img *ngFor="let c of [0, 1, 2, 3, 4] let i = index;" [ngStyle]="{'right.px': i * 5}"
+            src="assets/cards/card_cover.png">
+
+        <!---Dieses image element ist dafür da dass wenn drauf geklickt wird, durch die Funktion takecard() pickCardAnimation zu true wird, 
+    wodurch sich dann das nächste Bild anzeigen und ihre Animation vollziehen lässt.-->
+        <img (click)="takeCard()" class="top-card" style="right: 25px" src="assets/cards/card_cover.png">
+
+
+        <!----Der Stapel der die bereits gespielten Karten anzeigt.--->
+        <img *ngFor="let card of game.playedCards" src="/assets/cards/{{ card }}.png" class="played-card">
+
+        <!---Dieses image element lässt sich anzeigen, sobald auf das vorherige image element geklickt wird und durch die Funktion
+     takeCard das pickCardAnimation zu true wird. Da diese Variable auf false gesetzt ist, bleibt es solange verborgen.--->
+        <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card pickCardAnimation" style="right: 25px"
+            src="assets/cards/{{currentCard}}.png">
+    </div>
+</div>
+
+
+
+<button mat-fab color="primary" (click)="openDialog()" class="btn-add">
+    <mat-icon>add</mat-icon>
+</button>
+
+<app-game-info [card]="currentCard" class="pin-bottom"> </app-game-info>

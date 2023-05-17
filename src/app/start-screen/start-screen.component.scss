@@ -1,0 +1,46 @@
+.start-screen {
+    color: #404040;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startScreenImage {
+    width: 100%;
+    height: 100vh;
+}
+
+.title {
+    position: absolute;
+    font-size: 100px;
+    color: aliceblue;
+    top: 90px;
+    border: solid 10px white;
+    background-color: black;
+    border-radius: 36px;
+}
+
+.drunkGuy {
+    position: absolute;
+    width: 417px;
+    height: 526px;
+    bottom: 189px;
+}
+
+.startGame {
+    position: absolute;
+    font-size: 71px;
+    color: aliceblue;
+    bottom: 66px;
+    border: solid 6px white;
+    background-color: black;
+    border-radius: 28px;
+    cursor: pointer;
+}
+
+.startGame:hover {
+    transform: scale(1.1);
+    }
