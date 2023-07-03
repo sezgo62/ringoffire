@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fir-multiplayer-fc117": {
+      "hosting": {
+        "ringoffire": [
+          "fir-multiplayer-fc117"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fir-multiplayer-fc117"
+  }
+}

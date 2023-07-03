@@ -16,10 +16,14 @@
 .title {
     position: absolute;
     font-size: 100px;
-    color: aliceblue;
+    height: 123px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f0f8ff;
     top: 90px;
     border: solid 10px white;
-    background-color: black;
+    background-color: #000;
     border-radius: 36px;
 }
 
@@ -33,12 +37,16 @@
 .startGame {
     position: absolute;
     font-size: 71px;
-    color: aliceblue;
+    color: #f0f8ff;
+    height: 77px;
+    display: flex;
     bottom: 66px;
     border: solid 6px white;
-    background-color: black;
+    background-color: #000;
     border-radius: 28px;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
 }
 
 .startGame:hover {

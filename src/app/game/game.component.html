@@ -20,7 +20,7 @@ mit welcher wir die jeweilige Karte durch das i, also index verschieben."-->
 
 
         <!----Der Stapel der die bereits gespielten Karten anzeigt.--->
-        <img *ngFor="let card of game.playedCards" src="/assets/cards/{{ card }}.png" class="played-card">
+        <img *ngFor="let card of game.playedCards" src="assets/cards/{{ card }}.png" class="played-card">
 
         <!---Dieses image element lässt sich anzeigen, sobald auf das vorherige image element geklickt wird und durch die Funktion
      takeCard das pickCardAnimation zu true wird. Da diese Variable auf false gesetzt ist, bleibt es solange verborgen.--->

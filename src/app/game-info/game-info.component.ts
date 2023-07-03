@@ -39,7 +39,7 @@ export class GameInfoComponent implements OnInit, OnChanges {
     console.log('currentCard is', this.card);
     let cardNumber = +this.card.split('_')[1];
     this.title = this.cardAction[cardNumber- 1].title;
-    this.description = this. cardAction[cardNumber - 1].description;
+    this.description = this.cardAction[cardNumber - 1].description;
 
     }
 }
