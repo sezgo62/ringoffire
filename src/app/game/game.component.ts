@@ -37,17 +37,32 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
     this.newGame();
-    debugger;
-    this.aCollection.valueChanges().subscribe((actualGame) => {
-      console.log('Game update', actualGame);
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+
+      this.aCollection
+        .doc(params['id'])
+        .valueChanges()
+        .subscribe((actualGame) => {
+          console.log('Game update', actualGame);
+          this.game.currentPlayer = actualGame.currentPlayer;
+          this.game.playedCards = actualGame.playedCards;
+          this.game.players = actualGame.players;
+          this.game.stack = actualGame.stack;
+
+
+        });
+
     });
+
+
 
   }
 
   newGame() {
     this.game = new Game();
 
-    this.aCollection.add(this.game.toJson());
+    //this.aCollection.add(this.game.toJson());
   }
 
   takeCard() {
