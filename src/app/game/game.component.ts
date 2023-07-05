@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { Firestore, collection, collectionData, getFirestore } from '@angular/fire/firestore';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 
 import { Observable } from 'rxjs';
@@ -18,9 +19,9 @@ export class GameComponent implements OnInit {
   //firestore: Firestore = getFirestore();
 
   firestore: Firestore = inject(Firestore);
-  items$: Observable<any[]>;
+  game$: Observable<any[]>;
 
-  private itemsCollection: AngularFirestoreCollection<any>;
+  //private itemsCollection: AngularFirestoreCollection<any>;
 
   pickCardAnimation = false;
   game: Game;
@@ -28,25 +29,25 @@ export class GameComponent implements OnInit {
 
   aCollection;
 
-  constructor(public dialog: MatDialog, private afs: AngularFirestore) {
-    this.aCollection = collection(this.firestore, 'game');
-    this.items$ = collectionData(this.aCollection);
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private afs: AngularFirestore) {
+    this.aCollection = afs.collection('games');
+    this.game$ = collectionData(this.aCollection);
   }
 
 
   ngOnInit() {
     this.newGame();
-   
-    this.items$ = this.aCollection.valueChanges().subscribe((game) => {
-      debugger;
-      console.log('Game update', game);
+    debugger;
+    this.aCollection.valueChanges().subscribe((actualGame) => {
+      console.log('Game update', actualGame);
     });
 
   }
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
+
+    this.aCollection.add(this.game.toJson());
   }
 
   takeCard() {
