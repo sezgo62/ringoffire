@@ -16,15 +16,17 @@ this.aCollection = afs.collection('games');
 }
 
 newGame() {
-  let game = new Game;
+  let game = new Game();
 
-  this.aCollection.add(game.toJson())
+
+  this.aCollection.add(game.toJson()) //Nachdem wir unsere Arrays in ein Json objekt umgewandelt haben, adden wir dieses Objekt unserer collection hinzu mit einer neuen document id.
   .then((gameInfo: any) => {
-    console.log(gameInfo);
-  })
-  ;
+    console.log('The gameinfois', gameInfo);
 
-  this.router.navigateByUrl('/game');
+    this.router.navigateByUrl('/game/' + gameInfo.id);
+  });
+
 }
+
 
 }

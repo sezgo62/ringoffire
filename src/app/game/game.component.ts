@@ -29,28 +29,30 @@ export class GameComponent implements OnInit {
 
   aCollection;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private afs: AngularFirestore) {
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private afs: AngularFirestore) { //ActivatedRoute muss importiert werden damit wir auf die route zugreifen können.
     this.aCollection = afs.collection('games');
     this.game$ = collectionData(this.aCollection);
   }
 
 
   ngOnInit() {
-    this.newGame();
-    this.route.params.subscribe((params) => {
-      console.log(params['id']);
+    //this.newGame();
+    this.game = new Game();
+
+    debugger;
+    this.route.params.subscribe((params) => { // Hier können wir uns die URL Parameter abonnieren.
+      console.log(this.route);
 
       this.aCollection
-        .doc(params['id'])
+        .doc(params['gameid'])
         .valueChanges()
         .subscribe((actualGame) => {
           console.log('Game update', actualGame);
+
           this.game.currentPlayer = actualGame.currentPlayer;
           this.game.playedCards = actualGame.playedCards;
           this.game.players = actualGame.players;
           this.game.stack = actualGame.stack;
-
-
         });
 
     });

@@ -5,7 +5,7 @@ import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
   { path: '', component: StartScreenComponent },
-  { path: 'game/:id', component: GameComponent },
+  { path: 'game/:gameid', component: GameComponent }, //nach dem game/ übergeben wir einen Parameter um eine individuelle URL zu erschaffen.
 
 ];
 
