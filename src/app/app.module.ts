@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { GameInfoComponent } from './game-info/game-info.component';
 import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.component';
@@ -25,6 +25,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore, Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { PlayerMobileComponent } from './player-mobile/player-mobile.component';
 
 const environment = {
   production: false,
@@ -46,7 +47,8 @@ const environment = {
     GameComponent,
     PlayerComponent,
     DialogAddPlayerComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    PlayerMobileComponent
   ],
   imports: [  
     BrowserModule,
@@ -59,6 +61,8 @@ const environment = {
     FormsModule,
     MatInputModule,
     MatCardModule,
+    ReactiveFormsModule,
+    MatDialogModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

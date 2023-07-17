@@ -20,10 +20,10 @@ newGame() {
 
 
   this.aCollection.add(game.toJson()) //Nachdem wir unsere Arrays in ein Json objekt umgewandelt haben, adden wir dieses Objekt unserer collection hinzu mit einer neuen document id.
-  .then((gameInfo: any) => {
-    console.log('The gameinfois', gameInfo);
+  .then((gameInfo: any) => { //Durch then() bauen wir unsere Funktion weiter auf unserer collection auf und durch die gameInfo bekommen wir zugriff auf die Informationen unseres Spiels.
+    console.log('The gameinfo is', gameInfo);
 
-    this.router.navigateByUrl('/game/' + gameInfo.id);
+    this.router.navigateByUrl('/game/' + gameInfo.id); // Wir navigieren zu dieser URL.
   });
 
 }

@@ -51,4 +51,92 @@
 
 .startGame:hover {
     transform: scale(1.1);
+}
+
+
+
+@media screen and (max-width: 540px) {
+
+    .title {
+        font-size: 59px;
+        height: 81px;
+        width: 400px;
     }
+
+    .startGame {
+        font-size: 43px;
+        height: 45px;
+        width: 292px;
+    }
+
+    @media screen and (max-width: 435px) {
+
+        .title {
+            font-size: 47px;
+            height: 59px;
+            width: 298px;
+        }
+
+        .startGame {
+            font-size: 30px;
+            height: 41px;
+            width: 203px;
+        }
+
+    }
+
+    @media screen and (max-width: 435px) {
+
+        .title {
+            font-size: 42px;
+            height: 57px;
+            width: 270px;
+        }
+
+
+        .startGame {
+            font-size: 27px;
+            height: 37px;
+            width: 173px;
+        }
+
+        .drunkGuy {
+            width: 312px;
+            height: 519px;
+            bottom: 202px;
+        }
+
+    }
+
+}
+
+@media screen and (max-height: 896px) {
+
+    .drunkGuy {
+        width: 235px;
+        height: 368px;
+        bottom: 162px;
+    }
+
+}
+
+@media screen and (max-height: 667px) {
+
+    .drunkGuy {
+        width: 203px;
+        height: 313px;
+        bottom: 162px;
+    }
+
+}
+
+
+@media screen and (height: 600px) {
+    
+    .drunkGuy {
+    width: 143px;
+    height: 166px;
+    bottom: 180px;
+}
+
+}

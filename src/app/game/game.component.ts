@@ -23,11 +23,12 @@ export class GameComponent implements OnInit {
 
   //private itemsCollection: AngularFirestoreCollection<any>;
 
-  pickCardAnimation = false;
   game: Game;
-  currentCard: string = '';
+  
 
   aCollection;
+
+  gameId: string;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private afs: AngularFirestore) { //ActivatedRoute muss importiert werden damit wir auf die route zugreifen können.
     this.aCollection = afs.collection('games');
@@ -39,26 +40,35 @@ export class GameComponent implements OnInit {
     //this.newGame();
     this.game = new Game();
 
-    debugger;
     this.route.params.subscribe((params) => { // Hier können wir uns die URL Parameter abonnieren.
-      console.log(this.route);
+      console.log(params['gameid']);
+
+      this.gameId = params['gameid'];
 
       this.aCollection
-        .doc(params['gameid'])
-        .valueChanges()
-        .subscribe((actualGame) => {
+        .doc(params['gameid']) //Wir bekommen Zugriff auf das document mit der jeweiligen id.
+        .valueChanges() //Diese Funktion tritt in Kraft wenn es eine Änderung in der Datenbank gibt.
+        .subscribe((actualGame) => { // Die subscribe() wird oft ausgeführt, falls eine Änderung geschieht, wohingegen die then() Methode nur einmal ausgeführt wird.
           console.log('Game update', actualGame);
 
+
+          //Hier wird das aktuelle Spiel in der Datenbank aktualisiert.
           this.game.currentPlayer = actualGame.currentPlayer;
           this.game.playedCards = actualGame.playedCards;
           this.game.players = actualGame.players;
           this.game.stack = actualGame.stack;
+          this.game.currentCard = actualGame.currentCard;
+          this.game.pickCardAnimation = actualGame.pickCardAnimation;
         });
-
     });
+  }
 
-
-
+  saveGame() {
+   
+    this.aCollection
+    .doc(this.gameId)
+    .update(this.game.toJson());
+   
   }
 
   newGame() {
@@ -69,20 +79,22 @@ export class GameComponent implements OnInit {
 
   takeCard() {
 
-    if (!this.pickCardAnimation) {
+    if (!this.game.pickCardAnimation) {
 
       //Durch die Funktion pop() können wir das Element an der letzten stelle des arrays entnehmen.
-      this.currentCard = this.game.stack.pop();
-      console.log(this.currentCard);
+      this.game.currentCard = this.game.stack.pop();
+      console.log(this.game.currentCard);
       console.log(this.game.playedCards);
-      this.pickCardAnimation = true;
+      this.game.pickCardAnimation = true;
 
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
-        this.pickCardAnimation = false; // pickCardAnimation wird nach 1.5 Sekunden auf false gesetzt, weswegen wir erst nach 1.5 Sekunden wird eine Karte ziehen können und wir überhaupt wieder eine Karte ziehen können.
+        this.game.playedCards.push(this.game.currentCard);
+        this.game.pickCardAnimation = false; // pickCardAnimation wird nach 1.5 Sekunden auf false gesetzt, weswegen wir erst nach 1.5 Sekunden wird eine Karte ziehen können und wir überhaupt wieder eine Karte ziehen können.
+        this.saveGame();
 
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
+        this.saveGame();
 
       }, 1000);
 
@@ -99,8 +111,8 @@ export class GameComponent implements OnInit {
 
 
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+   openDialog(): void {
+   const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
 
     dialogRef.afterClosed().subscribe(name => {
@@ -110,8 +122,10 @@ export class GameComponent implements OnInit {
         this.game.players.push(name);
 
       }
-
+      this.saveGame();
     });
   }
+
+
 
 }

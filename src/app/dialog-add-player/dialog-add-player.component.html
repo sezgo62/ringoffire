@@ -1,14 +1,26 @@
 <h1 mat-dialog-title>Hi</h1>
 
-<div mat-dialog-content>
-  <p>Please enter the name of the player</p>
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="name">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
-</div>
+<form [formGroup]="userDetailsForm" (ngSubmit)="onSubmitUserDetails()">
 
+  <div mat-dialog-content>
+    <p>Please enter the name of the player</p>
+
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+
+
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+
+    <div class="femaleCheckbox">
+      Female <input type="checkbox" value="female" class="femaleCheck" formControlName="gender" required>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [disabled]="!userDetailsForm.valid" [mat-dialog-close]="userDetailsForm.value"
+        cdkFocusInitial>Ok</button>
+    </div>
+  </div>
+</form>

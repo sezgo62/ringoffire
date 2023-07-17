@@ -39,6 +39,10 @@ transition: all 125ms ease-in-out;
 
 }
 
+.btn-add {
+    z-index: 1;
+}
+
 @keyframes pick-card-animation {
     0% {
     transform: scale(1);
@@ -57,15 +61,26 @@ transition: all 125ms ease-in-out;
     }
 }
 
+.scroll-container {
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    overflow-y: hidden;
+    overflow-y: scroll;
+}
+
 .player-position {
     position:absolute;
     right: 0;
+    z-index: 1;
 }
 
 .btn-add {
     position: absolute;
     right: 32px;
-    bottom: 32px;
+    bottom: 100px;
 }
 
 .pin-bottom {
@@ -73,4 +88,15 @@ transition: all 125ms ease-in-out;
     left: 100px;
     right: 100px;
     bottom: 32px;
+}
+
+@media screen and (max-width: 435px) {
+
+    .pin-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
 }

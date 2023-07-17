@@ -1,7 +1,10 @@
-<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 90)}" 
-[playerActive]="i == game.currentPlayer"
-[name]="player"
-    class="player-position"></app-player>
+<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 90)}"
+    [playerActive]="i == game.currentPlayer" [name]="player" class="player-position hideDesktop"></app-player>
+
+<div class="scroll-container">
+    <app-player-mobile class="hideMobile" *ngFor="let player of game.players; let i = index;" [playerActive]="i == game.currentPlayer"
+        [name]="player"></app-player-mobile>
+</div>
 
 <div class="field">
 
@@ -24,8 +27,8 @@ mit welcher wir die jeweilige Karte durch das i, also index verschieben."-->
 
         <!---Dieses image element lässt sich anzeigen, sobald auf das vorherige image element geklickt wird und durch die Funktion
      takeCard das pickCardAnimation zu true wird. Da diese Variable auf false gesetzt ist, bleibt es solange verborgen.--->
-        <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card pickCardAnimation" style="right: 25px"
-            src="/assets/cards/{{currentCard}}.png">
+        <img (click)="takeCard()" *ngIf="game.pickCardAnimation" class="pick-card pickCardAnimation" style="right: 25px"
+            src="/assets/cards/{{game.currentCard}}.png">
     </div>
 </div>
 
@@ -35,4 +38,4 @@ mit welcher wir die jeweilige Karte durch das i, also index verschieben."-->
     <mat-icon>add</mat-icon>
 </button>
 
-<app-game-info [card]="currentCard" class="pin-bottom"> </app-game-info>
+<app-game-info [card]="game.currentCard" class="pin-bottom"> </app-game-info>
