@@ -24,11 +24,13 @@ export class GameComponent implements OnInit {
   //private itemsCollection: AngularFirestoreCollection<any>;
 
   game: Game;
-  
+
 
   aCollection;
 
   gameId: string;
+
+  gameOver = false;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private afs: AngularFirestore) { //ActivatedRoute muss importiert werden damit wir auf die route zugreifen können.
     this.aCollection = afs.collection('games');
@@ -64,11 +66,11 @@ export class GameComponent implements OnInit {
   }
 
   saveGame() {
-   
+
     this.aCollection
-    .doc(this.gameId)
-    .update(this.game.toJson());
-   
+      .doc(this.gameId)
+      .update(this.game.toJson());
+
   }
 
   newGame() {
@@ -79,7 +81,9 @@ export class GameComponent implements OnInit {
 
   takeCard() {
 
-    if (!this.game.pickCardAnimation) {
+    if (this.game.stack.length == 0) {
+      this.gameOver = true;
+    } else if (!this.game.pickCardAnimation) {
 
       //Durch die Funktion pop() können wir das Element an der letzten stelle des arrays entnehmen.
       this.game.currentCard = this.game.stack.pop();
@@ -108,20 +112,40 @@ export class GameComponent implements OnInit {
     }*/
   }
 
+  maleImage = "/assets/img/profile/profileImage.jpg";
+  femaleImage = "/assets/img/profile/profilePictureFemale.png";
+
+  gender;
+  pushPlayer;
+  image;
 
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    console.log('sdsdsdsd', dialogRef);
 
-   openDialog(): void {
-   const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    dialogRef.afterClosed().subscribe(sezgo => {
+      console.log('The dialog was closed', sezgo);
+      debugger;
+      this.gender = sezgo.femaleGender ? "female" : "male";
 
-
-    dialogRef.afterClosed().subscribe(name => {
-      console.log('The dialog was closed', name);
-
-      if (name.length > 0) {
-        this.game.players.push(name);
-
+      if (this.gender == 'male') {
+        this.image = this.maleImage;
+      } else {
+        this.image = this.femaleImage;
       }
+
+      this.pushPlayer = {
+        "name": sezgo.name,
+        "image": this.image
+      }
+
+      debugger;
+      if (sezgo.name.length > 0) {
+        this.game.players.push(this.pushPlayer);
+        console.log(this.pushPlayer, 'wurde hinzugefügt');
+      }
+
       this.saveGame();
     });
   }

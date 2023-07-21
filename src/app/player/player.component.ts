@@ -7,6 +7,7 @@ import { Game } from 'src/models/game';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent {
-@Input() name;
-@Input() playerActive: boolean = false;
+  @Input() playerImage;
+  @Input() name;
+  @Input() playerActive: boolean = false;
 }

@@ -14,12 +14,17 @@
     </mat-form-field>
 
     <div class="femaleCheckbox">
-      Female <input type="checkbox" value="female" class="femaleCheck" formControlName="gender" required>
+      Female <input type="checkbox" class="femaleCheck" formControlName="femaleGender" (change)="onCheckboxChange()"
+        required>
+    </div>
+
+    <div class="maleCheckbox">
+      Male <input type="checkbox" class="maleCheck" formControlName="maleGender" (change)="onCheckboxChange()" required>
     </div>
 
     <div mat-dialog-actions>
       <button mat-button (click)="onNoClick()">No Thanks</button>
-      <button mat-button [disabled]="!userDetailsForm.valid" [mat-dialog-close]="userDetailsForm.value"
+      <button type="submit" mat-button [disabled]="!userDetailsForm.valid" [mat-dialog-close]="userDetailsForm.value"
         cdkFocusInitial>Ok</button>
     </div>
   </div>

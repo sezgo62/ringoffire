@@ -2,7 +2,7 @@ export class Game {
   pop(): string {
     throw new Error('Method not implemented.');
   }
-  public players: string[] = [
+  public players = [
     
   ];
   public stack: string[] = [];

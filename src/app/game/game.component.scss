@@ -90,6 +90,19 @@ transition: all 125ms ease-in-out;
     bottom: 32px;
 }
 
+.gameOverImage {
+    position: absolute;
+    left: 27%;
+    top: 5%;
+    z-index: 10;
+    width: 50%;
+}
+
+.preloadImage{
+    opacity: 0;
+    z-index: -99999;
+}
+
 @media screen and (max-width: 435px) {
 
     .pin-bottom {
